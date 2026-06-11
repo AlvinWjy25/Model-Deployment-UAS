@@ -12,10 +12,13 @@ class CreditInferencePipeline:
         self.scaler_path = BASE_DIR / "artifacts" / "scaler.joblib"
         
         try:
-            self.model = joblib.load(self.model_path)
-            self.scaler = joblib.load(self.scaler_path)
+            self.model = joblib.load(str(self.model_path))
+            self.scaler = joblib.load(str(self.scaler_path))
+        except FileNotFoundError:
+            st.error(f"File tidak ditemukan. Path yang dicari:\n{self.model_path}\n{self.scaler_path}")
+            st.stop()
         except Exception as e:
-            st.error(f"Failed to load model. Make sure you ran pipeline.py.\n Error: {e}")
+            st.error(f"Failed to load model: {e}")
             st.stop()
             
         
