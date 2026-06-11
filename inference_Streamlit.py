@@ -8,8 +8,8 @@ from config import PROCESSED_DATA_PATH, ARTIFACT_DIR
 
 class CreditInferencePipeline:
     def __init__(self):
-        self.model_path = ARTIFACT_DIR / "best_model.joblib"
-        self.scaler_path = ARTIFACT_DIR / "scaler.joblib"
+        self.model_path = "artifacts/best_model.joblib"
+        self.scaler_path = "artifacts/scaler.joblib"
         
         try:
             self.model = joblib.load(self.model_path)
