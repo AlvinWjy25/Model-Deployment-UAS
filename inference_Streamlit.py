@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+
 import os
+import traceback
 from pathlib import Path
 
 class CreditInferencePipeline:
@@ -16,9 +18,11 @@ class CreditInferencePipeline:
             self.scaler = joblib.load(str(self.scaler_path))
         except FileNotFoundError:
             st.error(f"File tidak ditemukan. Path yang dicari:\n{self.model_path}\n{self.scaler_path}")
+            print(traceback.print_exc())
             st.stop()
         except Exception as e:
             st.error(f"Failed to load model: {e}")
+            print(traceback.print_exc())
             st.stop()
             
         
