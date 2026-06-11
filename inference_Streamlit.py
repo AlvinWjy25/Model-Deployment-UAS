@@ -2,12 +2,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import os
 from pathlib import Path
 
 class CreditInferencePipeline:
     def __init__(self):
-        self.model_path = "artifacts/best_model.joblib"
-        self.scaler_path = "artifacts/scaler.joblib"
+        BASE_DIR = Path(__file__).resolve().parent
+        self.model_path = BASE_DIR / "artifacts" / "best_model.joblib"
+        self.scaler_path = BASE_DIR / "artifacts" / "scaler.joblib"
         
         try:
             self.model = joblib.load(self.model_path)
