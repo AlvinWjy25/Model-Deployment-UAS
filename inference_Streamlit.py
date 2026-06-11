@@ -7,6 +7,12 @@ import os
 import traceback
 from pathlib import Path
 
+@st.cache_resource
+def load_model_artifacts(model_path, scaler_path):
+    model = joblib.load(str(model_path))
+    scaler = joblib.load(str(scaler_path))
+    return model, scaler
+
 class CreditInferencePipeline:
     def __init__(self):
         BASE_DIR = Path(__file__).resolve().parent
@@ -14,8 +20,7 @@ class CreditInferencePipeline:
         self.scaler_path = BASE_DIR / "artifacts" / "scaler.joblib"
         
         try:
-            self.model = joblib.load(str(self.model_path))
-            self.scaler = joblib.load(str(self.scaler_path))
+            self.model, self.scaler = load_model_artifacts(self.model_path, self.scaler_path)
         except FileNotFoundError:
             st.error(f"File tidak ditemukan. Path yang dicari:\n{self.model_path}\n{self.scaler_path}")
             print(traceback.print_exc())
