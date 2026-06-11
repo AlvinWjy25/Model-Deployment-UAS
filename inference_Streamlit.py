@@ -4,8 +4,6 @@ import numpy as np
 import joblib
 from pathlib import Path
 
-from config import PROCESSED_DATA_PATH, ARTIFACT_DIR
-
 class CreditInferencePipeline:
     def __init__(self):
         self.model_path = "artifacts/best_model.joblib"
